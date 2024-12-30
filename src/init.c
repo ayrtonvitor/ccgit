@@ -34,4 +34,5 @@ int init(char *path) {
     fclose(headFile);
 
     printf("Initialized git directory\n");
+    return 0;
 }
