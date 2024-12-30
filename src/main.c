@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     const char *command = argv[1];
 
     if (strcmp(command, "init") == 0) {
-        char *path = "";
+        char *path = NULL;
         if (argc >= 3) {
             path = argv[2];
         }
