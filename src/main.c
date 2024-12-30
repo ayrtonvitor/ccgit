@@ -15,7 +15,11 @@ int main(int argc, char *argv[]) {
     const char *command = argv[1];
 
     if (strcmp(command, "init") == 0) {
-        init();
+        char *path = "";
+        if (argc >= 3) {
+            path = argv[2];
+        }
+        init(path);
     } else {
         fprintf(stderr, "Unknown command %s\n", command);
         return 1;

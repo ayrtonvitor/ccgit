@@ -2,8 +2,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <unistd.h>
 
-int init() {
+int init(char *path) {
+    struct stat statbuf;
+    if ((stat(path, &statbuf) != 0 || S_ISDIR(statbuf.st_mode) == 0) &&
+        mkdir(path, 0755) == -1) {
+        fprintf(stderr, "Failed to create path directory %s: %s\n", path, strerror(errno));
+        return 1;
+    }
+    if (chdir(path) == -1) {
+        fprintf(stderr, "Failed to move to directory %s: %s\n", path, strerror(errno));
+        return 1;
+    }
+
     if (mkdir(".git", 0755) == -1 ||
         mkdir(".git/objects", 0755) == -1 ||
         mkdir(".git/refs", 0755) == -1) {
